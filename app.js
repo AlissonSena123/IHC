@@ -1,5 +1,6 @@
 import express from "express";
 
+/** OS imports dos scripts que estão na pasta rotas */
 import pageRoutes from "./src/routers/pagesRouter.js";
 import authRoutes from "./src/routers/authRoutes.js";
 import agendamentoRoutes from "./src/routers/agendaRoutes.js";

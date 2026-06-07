@@ -7,6 +7,8 @@ const router = Router();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+/** Aqui ficam as rotas das paginas do nosso projeto */
+
 // Login
 router.get("/", (req, res) => {
     res.sendFile(

@@ -3,6 +3,10 @@ import AgendamentoController from "../controllers/agendaController.js";
 
 const router = Router();
 
+/** Aqui estão os rotas que se conectam com o static da classe AgendamentoController */
+/** São essas rotas que iremos chamar quando fazermos o fetch nos arquivos JS */
+/** Basicamente é dentro da pasta de routers onde fazemos o CRUD */
+/** Tudo relacionado a agendamentos fica aqui */
 router.get("/api/agendamentos", AgendamentoController.listarAgenda);
 router.post("/api/agendamentos",AgendamentoController.criarAgenda);
 router.put("/api/agendamentos/:id",AgendamentoController.atualizarAgenda);
