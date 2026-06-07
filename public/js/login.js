@@ -48,7 +48,7 @@ form.addEventListener("submit", async (e) => {
 
         setTimeout(() => {
             window.location.href =
-                "/dashboard.html";
+                "/dashboard";
         }, 1000);
 
     } catch (error) {

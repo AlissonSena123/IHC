@@ -1,11 +1,11 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import UsuarioModel from "../model/usuarioModel";
+import UsuarioModel from "../model/usuarioModel.js";
 
 export default class AuthService {
 
     static async cadastrar(dados) {
-        const usuarioExistente = UsuarioModel.buscarPorEmail(dados.email);
+        const usuarioExistente = await UsuarioModel.buscarPorEmail(dados.email);
 
         if(usuarioExistente){
             throw new Error("Usuário já cadastrado");

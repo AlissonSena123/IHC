@@ -1,4 +1,4 @@
-import { supabase } from "../config/supabase";
+import { supabase } from "../config/supabase.js";
 
 export default class UsuarioModel {
     static async buscarPorEmail(email) {
@@ -6,14 +6,14 @@ export default class UsuarioModel {
             .from("psicologo")
             .select("*")
             .eq("email", email)
-            .single();
+            .maybeSingle();
 
         if (error) throw error;
 
         return data;
     }
 
-    static cadastrarUsuário(usuario) {
+    static async cadastrarUsuário(usuario) {
         const {data, error} = await supabase
             .from("psicologo")
             .insert(usuario)

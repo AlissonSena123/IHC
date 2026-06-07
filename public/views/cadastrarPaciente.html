@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Paciente - Clinica Inteligente</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/regular/style.css">
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success mb-4 shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#"><i class="ph ph-heartbeat me-2"></i>Clinica Inteligente</a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/dashboard"><i class="ph ph-house me-1"></i>Início</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" id="pacienteDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="ph ph-users me-1"></i>Paciente
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="pacienteDropdown">
+                            <li><a class="dropdown-item" href="/pacientes"><i class="ph ph-list-bullets me-2"></i>Lista de Pacientes</a></li>
+                            <li><a class="dropdown-item active" href="/cadastrar/paciente"><i class="ph ph-user-plus me-2"></i>Cadastrar Paciente</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="agendaDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="ph ph-calendar-blank me-1"></i>Agenda
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="agendaDropdown">
+                            <li><a class="dropdown-item" href="/listar/agendamento"><i class="ph ph-list-bullets me-2"></i>Lista de Agendamentos</a></li>
+                            <li><a class="dropdown-item" href="/criar/agendamento"><i class="ph ph-calendar-plus me-2"></i>Criar Agendamento</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="prontuariosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="ph ph-folder-open me-1"></i>Prontuários
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="prontuariosDropdown">
+                            <li><a class="dropdown-item" href="#"><i class="ph ph-file-search me-2"></i>Ver Prontuários</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="ph ph-file-plus me-2"></i>Criar Prontuário</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="d-flex align-items-center">
+                <span id="welcomeText" class="text-white me-3"></span>
+                <button id="logoutBtn" class="btn btn-danger text-white fw-bold shadow-sm"><i class="ph ph-sign-out me-1"></i>Sair</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container pb-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-white border-0 py-3 text-center">
+                        <h4 class="mb-0 text-success fw-bold">
+                            <i class="ph ph-user-plus me-2"></i>Cadastrar Novo Paciente
+                        </h4>
+                    </div>
+                    <div class="card-body p-4">
+                        <form id="pacienteForm">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold text-muted small text-uppercase"><i class="ph ph-user me-1"></i>Nome</label>
+                                    <input id="nome" class="form-control" placeholder="Digite o nome" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold text-muted small text-uppercase"><i class="ph ph-user me-1"></i>Sobrenome</label>
+                                    <input id="sobrenome" class="form-control" placeholder="Digite o sobrenome" required>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold text-muted small text-uppercase"><i class="ph ph-envelope me-1"></i>E-mail</label>
+                                    <input type="email" id="email" class="form-control" placeholder="paciente@exemplo.com" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold text-muted small text-uppercase"><i class="ph ph-phone me-1"></i>Telefone</label>
+                                    <input id="telefone" class="form-control" placeholder="(00) 00000-0000">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold text-muted small text-uppercase"><i class="ph ph-identification-card me-1"></i>CPF</label>
+                                    <input id="cpf" class="form-control" placeholder="000.000.000-00">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold text-muted small text-uppercase"><i class="ph ph-calendar me-1"></i>Data de Nascimento</label>
+                                    <input type="date" id="data_nascimento" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label fw-bold text-muted small text-uppercase"><i class="ph ph-map-pin me-1"></i>Endereço Completo</label>
+                                <input id="endereco" class="form-control" placeholder="Rua, número, bairro, cidade...">
+                            </div>
+
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-success btn-lg fw-bold shadow-sm py-3">
+                                    <i class="ph ph-check-circle me-2"></i>Finalizar Cadastro
+                                </button>
+                                <a href="/dashboard" class="btn btn-link text-muted">Voltar ao Início</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="/js/cadastrarPaciente.js"></script>
+</body>
+</html>

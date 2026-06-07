@@ -1,5 +1,4 @@
 import { Router } from "express";
-const router = Router();
 import path from "path";
 import { fileURLToPath } from "url";
 
@@ -9,11 +8,11 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Login
-router.get("/login", (req, res) => {
+router.get("/", (req, res) => {
     res.sendFile(
         path.join(
             __dirname,
-            "../../public/login.html"
+            "../../public/views/login.html"
         )
     );
 });
@@ -23,7 +22,56 @@ router.get("/cadastro", (req, res) => {
     res.sendFile(
         path.join(
             __dirname,
-            "../../public/cadastro.html"
+            "../../public/views/cadastro.html"
+        )
+    );
+});
+
+// Dashboard
+router.get("/dashboard", (req, res) => {
+    res.sendFile(
+        path.join(
+            __dirname,
+            "../../public/views/dashboard.html"
+        )
+    );
+});
+
+// Paciente
+router.get("/cadastrar/paciente", (req, res) => {
+    res.sendFile(
+        path.join(
+            __dirname,
+            "../../public/views/cadastrarPaciente.html"
+        )
+    );
+});
+
+router.get("/pacientes", (req, res) => {
+    res.sendFile(
+        path.join(
+            __dirname,
+            "../../public/views/listarPacientes.html"
+        )
+    );
+});
+
+
+// Agenda
+router.get("/criar/agendamento", (req, res) => {
+    res.sendFile(
+        path.join(
+            __dirname,
+            "../../public/views/criarAgenda.html"
+        )
+    );
+});
+
+router.get("/listar/agendamento", (req, res) => {
+    res.sendFile(
+        path.join(
+            __dirname,
+            "../../public/views/listarAgenda.html"
         )
     );
 });

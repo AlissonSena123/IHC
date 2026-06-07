@@ -1,7 +1,9 @@
 import express from "express";
 
-import pageRoutes from "./routes/pageRoutes.js";
-import authRoutes from "./routes/authRoutes.js";
+import pageRoutes from "./src/routers/pagesRouter.js";
+import authRoutes from "./src/routers/authRoutes.js";
+import agendamentoRoutes from "./src/routers/agendaRoutes.js";
+import pacienteRouter from "./src/routers/pacienteRouter.js"
 
 const app = express();
 
@@ -15,5 +17,7 @@ app.use(pageRoutes);
 
 // API
 app.use(authRoutes);
+app.use(agendamentoRoutes);
+app.use(pacienteRouter);
 
 export default app;

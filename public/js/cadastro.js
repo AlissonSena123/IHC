@@ -13,15 +13,18 @@ form.addEventListener("submit", async (e) => {
         return;
     }
 
+    const body = {
+        nome: document.getElementById("nome").value,
+        email: document.getElementById("email").value,
+        senha: document.getElementById("senha").value,
+        telefone: document.getElementById("telefone").value,
+        perfil: document.getElementById("perfil").value
+    };
+
     const response = await fetch("/auth/register", {
         method: "POST",
-        headers: { "Content-Type":"application/json"},
-        body: JSON.stringify({
-            nome: nome.value,
-            email: email.value,
-            senha: senha.value,
-            perfil: perfil.value
-        })
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
     });
 
     const data = await response.json();
@@ -40,4 +43,10 @@ form.addEventListener("submit", async (e) => {
             ${data.erro}
         </div>
         `;
+
+    if(response.ok){
+        setTimeout(() => {
+            window.location.href = "/"
+        }, 3000);
+    }
 });

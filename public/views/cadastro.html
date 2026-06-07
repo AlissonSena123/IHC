@@ -17,49 +17,55 @@
                         </h2>
                         <form id="cadastroForm">
                             <div class="mb-3">
-                                <label class="form-label">
+                                <label class="form-label" for="nome">
                                     Nome Completo
                                 </label>
                                 <input type="text" id="nome" class="form-control" required>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">
+                                <label class="form-label" for="email">
                                     Email
                                 </label>
                                 <input type="email" id="email" class="form-control" required>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">
+                                <label class="form-label" for="senha">
                                     Senha
                                 </label>
                                 <input type="password" id="senha" class="form-control" required>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">
+                                <label class="form-label" for="confirmarSenha">
                                     Confirmar Senha
                                 </label>
                                 <input type="password" id="confirmarSenha" class="form-control" required>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">
+                                <label for="telefone" class="form-label">
+                                    Telefone
+                                </label>
+                                <input type="text" name="telefone" id="telefone" required class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="perfil">
                                     Perfil
                                 </label>
                                 <select id="perfil" class="form-select">
                                     <option value="PSICOLOGO">
                                         Psicólogo
                                     </option>
-                                    <option value="RECEPCIONISTA">
-                                        Recepcionista
+                                    <option value="ADMIN">
+                                        Administrador
                                     </option>
                                 </select>
                             </div>
-                            <button class="btn btn-success w-100">
+                            <button class="btn btn-success w-100" type="submit">
                                 Cadastrar
                             </button>
                         </form>
                         <div id="mensagem" class="mt-3"></div>
                         <div class="text-center mt-3">
-                            <a href="/login">
+                            <a href="/">
                                 Voltar para Login
                             </a>
                         </div>
