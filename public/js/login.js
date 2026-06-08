@@ -28,18 +28,6 @@ form.addEventListener("submit", async (e) => {
             throw new Error(data.erro || "Erro ao realizar login");
         }
 
-        // Salva token
-        localStorage.setItem(
-            "token",
-            data.token
-        );
-
-        // Salva usuário
-        localStorage.setItem(
-            "usuario",
-            JSON.stringify(data.usuario)
-        );
-
         mensagem.innerHTML = `
             <div class="alert alert-success">
                 Login realizado com sucesso!

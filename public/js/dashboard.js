@@ -12,4 +12,28 @@ async function qtdPacientes() {
     }
 }
 
+async function carregarUsuario() {
+    try {
+        const response = await fetch("/auth/me", {
+            credentials: 'include'
+        });
+
+        if (!response.ok) {
+            // Token inválido ou expirado, manda pro login
+            window.location.href = "/login";
+            return;
+        }
+
+        const usuario = await response.json();
+
+        // Usa os dados na tela
+        document.getElementById("nomeUsuario").textContent = usuario.nome;
+        document.getElementById("perfilUsuario").textContent = usuario.perfil;
+
+    } catch (error) {
+        window.location.href = "/login";
+    }
+}
+
+carregarUsuario();
 qtdPacientes();
