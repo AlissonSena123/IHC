@@ -18,8 +18,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         const agendamentos = await response.json();
 
-        console.log(agendamentos);
-
         const eventos = agendamentos.map((agendamento) => ({
             id: agendamento.id,
             title: `${agendamento.titulo}`,

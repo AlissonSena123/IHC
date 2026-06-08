@@ -64,4 +64,14 @@ export default class AgendamentoModel {
 
         if (error) throw error;
     }
+
+    static async listarQuantidadeAgendas() {
+        const { count, error } = await supabase
+            .from("agendamentos")
+            .select("*", { count: "exact", head: true })
+
+        if (error) throw error;
+
+        return count;
+    }
 }

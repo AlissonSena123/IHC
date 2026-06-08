@@ -8,8 +8,9 @@ const router = Router();
 /** Basicamente é dentro da pasta de routers onde fazemos o CRUD */
 /** Tudo relacionado a agendamentos fica aqui */
 router.get("/api/listar/agendamentos", AgendamentoController.listarAgenda);
-router.post("/api/criar/agendamentos",AgendamentoController.criarAgenda);
-router.put("/api/atualizar/agendamentos/:id",AgendamentoController.atualizarAgenda);
-router.delete("/api/deletar/agendamentos/:id",AgendamentoController.excluirAgenda);
+router.post("/api/criar/agendamentos", AgendamentoController.criarAgenda);
+router.put("/api/atualizar/agendamentos/:id", AgendamentoController.atualizarAgenda);
+router.get("/api/qtd/agendamentos", AgendamentoController.listarQuantidadeDeAgendas);
+router.delete("/api/deletar/agendamentos/:id", AgendamentoController.excluirAgenda);
 
 export default router;

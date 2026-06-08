@@ -1,4 +1,4 @@
-const form = document.getElementById("agendamentoForm");
+const prontuarioForm = document.getElementById("prontuarioForm");
 
 async function carregarPacientes() {
     try {
@@ -30,22 +30,22 @@ async function carregarPacientes() {
 
 carregarPacientes();
 
-form.addEventListener("submit", async (e) => {
+prontuarioForm.addEventListener("submit", async (e) => {
 
     e.preventDefault();
 
     const dados = {
-        titulo: document.getElementById("titulo").value,
         paciente_id: Number(document.getElementById("paciente").value),
-        data_sessao: document.getElementById("data_sessao").value,
-        horario_inicio: document.getElementById("horario_inicio").value,
-        horario_fim: document.getElementById("horario_fim").value,
+        queixa_principal: document.getElementById("queixa_principal").value,
+        historico_clinico: document.getElementById("historico_clinico").value,
+        historico_familiar: document.getElementById("historico_social").value,
+        medicamentos: document.getElementById("medicamentos").value,
         status: document.getElementById("status").value,
-        descricao: document.getElementById("descricao").value
+        observacoes_gerais: document.getElementById("observacoes").value
     };
 
     try {
-        const response = await fetch("/api/criar/agendamentos", {
+        const response = await fetch("/api/criar/prontuarios", {
             method: "POST",
             headers: { "Content-Type": "application/json"},
             body: JSON.stringify(dados)
@@ -54,10 +54,11 @@ form.addEventListener("submit", async (e) => {
         const resultado = await response.json();
 
         if (response.ok) {
-            alert("Agendamento criado com sucesso!");
-            form.reset();
+            alert("Prontuario criado com sucesso!");
+            prontuarioForm.reset();
+            window.location.href = "/dashboard"
         } else {
-            alert(resultado.erro || "Erro ao criar agendamento.");
+            alert(resultado.erro || "Erro ao criar prontuario.");
         }
 
     } catch (error) {

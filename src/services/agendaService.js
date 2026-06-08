@@ -16,6 +16,11 @@ export default class AgendamentoService {
 
         // Verifica se já existe um agendamento no mesmo intervalo de tempo
         const conflito = eventos.find(evento => {
+
+            if (evento.data_sessao !== dados.data_sessao) {
+                return false;
+            }
+
             return (dados.horario_inicio < evento.horario_fim && dados.horario_fim > evento.horario_inicio && evento.status !== "CANCELADA");
         });
 
@@ -34,6 +39,10 @@ export default class AgendamentoService {
 
     // Repassa o id ao model para excluir o agendamento
     static async excluir(id) {
-        return await AgendamentoModel.excluir(id);
+        return await AgendamentoModel.excluirAgenda(id);
+    }
+
+    static async quantAgenda() {
+        return await AgendamentoModel.listarQuantidadeAgendas();
     }
 }

@@ -1,6 +1,6 @@
 async function carregarPacientes() {
     try {
-        const res = await fetch("/listar/pacientes");
+        const res = await fetch("/api/listar/pacientes");
         const data = await res.json();
 
         const tabela = document.getElementById("tabelaPacientes");
@@ -35,7 +35,7 @@ async function excluirPaciente(id) {
     
     if (!confirmado) return;
 
-    const res = await fetch(`/deletar/paciente/${id}`, { method: "DELETE" });
+    const res = await fetch(`/api/deletar/paciente/${id}`, { method: "DELETE" });
     const data = await res.json();
 
     if (data.success) {
