@@ -14,7 +14,11 @@ export default class UsuarioModel {
     };
 
     static async cadastrarUsuário(usuario) {
+<<<<<<< HEAD
         const { data, error } = await supabase
+=======
+        const {data, error} = await supabase
+>>>>>>> c7f6288fef35e2d3f92eea395db01c254b6b4244
             .from("usuario")
             .insert(usuario)
             .select()

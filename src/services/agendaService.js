@@ -1,5 +1,4 @@
 // Service responsável pelas regras de negócio dos agendamentos
-
 import AgendamentoModel from "../model/agendaModel.js";
 
 export default class AgendamentoService {
@@ -17,15 +16,17 @@ export default class AgendamentoService {
 
         // Verifica se já existe um agendamento no mesmo intervalo de tempo
         const conflito = eventos.find(evento => {
-            return (
-                dados.data_inicio < evento.data_fim &&
-                dados.data_fim > evento.data_inicio
-            );
+
+            if (evento.data_sessao !== dados.data_sessao) {
+                return false;
+            }
+
+            return (dados.horario_inicio < evento.horario_fim && dados.horario_fim > evento.horario_inicio && evento.status !== "CANCELADA");
         });
 
         // Se houver conflito, lança erro impedindo a criação
         if (conflito) {
-            throw new Error("Horário já ocupado.");
+            throw new Error("Horário indisponível");
         }
 
         return await AgendamentoModel.criarAgenda(dados);
@@ -38,6 +39,10 @@ export default class AgendamentoService {
 
     // Repassa o id ao model para excluir o agendamento
     static async excluir(id) {
-        return await AgendamentoModel.excluir(id);
+        return await AgendamentoModel.excluirAgenda(id);
+    }
+
+    static async quantAgenda() {
+        return await AgendamentoModel.listarQuantidadeAgendas();
     }
 }

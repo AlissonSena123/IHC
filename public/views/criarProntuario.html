@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novo Prontuário - Clínica Inteligente</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/regular/style.css">
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success mb-4 shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="/dashboard">
+                <i class="ph ph-heartbeat me-2"></i>Clinica Inteligente
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/dashboard">
+                            <i class="ph ph-house me-1"></i>Início
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                            <i class="ph ph-users me-1"></i>Paciente
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/pacientes"><i class="ph ph-list-bullets me-2"></i>Lista de Pacientes</a></li>
+                            <li><a class="dropdown-item" href="/cadastrar/paciente"><i class="ph ph-user-plus me-2"></i>Cadastrar Paciente</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                            <i class="ph ph-calendar-blank me-1"></i>Agenda
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/listar/agendamento"><i class="ph ph-list-bullets me-2"></i>Lista de Agendamentos</a></li>
+                            <li><a class="dropdown-item" href="/criar/agendamento"><i class="ph ph-calendar-plus me-2"></i>Novo Agendamento</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" data-bs-toggle="dropdown">
+                            <i class="ph ph-folder-open me-1"></i>Prontuários
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#"><i class="ph ph-file-search me-2"></i>Ver Prontuários</a></li>
+                            <li><a class="dropdown-item active" href="/criar/prontuario"><i class="ph ph-file-plus me-2"></i>Criar Prontuário</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="d-flex align-items-center">
+                <span id="welcomeText" class="text-white me-3"></span>
+                <button id="logoutBtn" class="btn btn-danger" type="button">
+                    <i class="ph ph-sign-out me-1"></i>Sair
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mb-5">
+        <div class="row justify-content-center">
+            <section class="col-lg-10">
+                <div class="card border-0 shadow-sm">
+                    <header class="card-header bg-white py-3 border-bottom-0">
+                        <h4 class="mb-0 text-success fw-bold">
+                            <i class="ph ph-file-plus me-2"></i>Novo Prontuário Clínico
+                        </h4>
+                    </header>
+                    <div class="card-body p-4 pt-0">
+                        <form id="prontuarioForm">
+                            <div class="row g-3">
+                                <div class="col-md-8 mb-3">
+                                    <label class="form-label fw-bold text-secondary small text-uppercase" for="paciente">
+                                        <i class="ph ph-user me-1"></i>Paciente
+                                    </label>
+                                    <select id="paciente" class="form-select" required>
+                                        <option value="">Carregando pacientes...</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label fw-bold text-secondary small text-uppercase" for="status">
+                                        <i class="ph ph-info me-1"></i>Status do Prontuário
+                                    </label>
+                                    <select id="status" class="form-select">
+                                        <option value="ATIVO">🟢 Ativo</option>
+                                        <option value="ARQUIVADO">📂 Arquivado</option>
+                                        <option value="EM_ANALISE">🟡 Em Análise</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold text-secondary small text-uppercase" for="queixa_principal">
+                                    <i class="ph ph-stethoscope me-1"></i>Queixa Principal
+                                </label>
+                                <textarea id="queixa_principal" class="form-control" rows="2" placeholder="Relato principal do paciente" required></textarea>
+                            </div>
+
+                            <div class="row g-3">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold text-secondary small text-uppercase" for="historico_clinico">
+                                        <i class="ph ph-activity me-1"></i>Histórico Clínico
+                                    </label>
+                                    <textarea id="historico_clinico" class="form-control" rows="5" placeholder="Antecedentes médicos, cirurgias, alergias..."></textarea>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold text-secondary small text-uppercase" for="historico_social">
+                                        <i class="ph ph-users-three me-1"></i>Histórico Familiar ou Aspectos Sociais
+                                    </label>
+                                    <textarea id="historico_social" class="form-control" rows="5" placeholder="Contexto familiar, estilo de vida e rede social..."></textarea>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold text-secondary small text-uppercase" for="medicamentos">
+                                    <i class="ph ph-prescription me-1"></i>Medicamentos em Uso
+                                </label>
+                                <textarea id="medicamentos" class="form-control" rows="2" placeholder="Liste medicamentos e dosagens atuais"></textarea>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label fw-bold text-secondary small text-uppercase" for="observacoes">
+                                    <i class="ph ph-note me-1"></i>Observações Gerais
+                                </label>
+                                <textarea id="observacoes" class="form-control" rows="3" placeholder="Outras informações relevantes"></textarea>
+                            </div>
+
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <a href="/dashboard" class="btn btn-outline-secondary px-4">
+                                    Cancelar
+                                </a>
+                                <button type="submit" class="btn btn-success px-5 fw-bold">
+                                    <i class="ph ph-floppy-disk me-2"></i>Salvar Prontuário
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="../js/criarProntuario.js"></script>
+</body>
+</html>

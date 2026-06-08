@@ -9,7 +9,7 @@ export default class AgendamentoController {
             return res.json(dados);
 
         } catch (error) {
-            return res.status(500).json({erro: error.message});
+            return res.status(500).json({ erro: error.message });
         }
     }
 
@@ -22,7 +22,7 @@ export default class AgendamentoController {
             return res.status(201).json(agendamento);
 
         } catch (error) {
-            return res.status(400).json({erro: error.message});
+            return res.status(400).json({ erro: error.message });
         }
     }
 
@@ -33,16 +33,16 @@ export default class AgendamentoController {
 
             const { id } = req.params;
 
-            const resultado =await AgendamentoService.atualizarAgenda(id, req.body);
+            const resultado = await AgendamentoService.atualizarAgenda(id, req.body);
 
             return res.json(resultado);
 
         } catch (error) {
 
-            return res.status(400).json({erro: error.message});
+            return res.status(400).json({ erro: error.message });
         }
     }
-    
+
     // Recebe o id via URL, envia ao service para excluir o agendamento e confirma a exclusão
     static async excluirAgenda(req, res) {
 
@@ -52,11 +52,21 @@ export default class AgendamentoController {
 
             await AgendamentoService.excluir(id);
 
-            return res.json({mensagem: "Excluído"});
+            return res.json({ success: true, mensagem: "Agendamento removido com sucesso" });
 
         } catch (error) {
 
-            return res.status(400).json({erro: error.message});
+            return res.status(400).json({ erro: error.message });
+        }
+    }
+
+    static async listarQuantidadeDeAgendas(req, res) {
+        try {
+            const qtdAgenda = await AgendamentoService.quantAgenda();
+            return res.status(200).json({ count: qtdAgenda });;
+        } catch (error) {
+            console.log("Erro: ", error);
+            res.status(500).json({ erro: error.message });
         }
     }
 }

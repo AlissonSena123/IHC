@@ -7,9 +7,10 @@ const router = Router();
 /** São essas rotas que iremos chamar quando fazermos o fetch nos arquivos JS */
 /** Basicamente é dentro da pasta de routers onde fazemos o CRUD */
 /** Tudo relacionado a agendamentos fica aqui */
-router.get("/api/agendamentos", AgendamentoController.listarAgenda);
-router.post("/api/agendamentos",AgendamentoController.criarAgenda);
-router.put("/api/agendamentos/:id",AgendamentoController.atualizarAgenda);
-router.delete("/api/agendamentos/:id",AgendamentoController.excluirAgenda);
+router.get("/api/listar/agendamentos", AgendamentoController.listarAgenda);
+router.post("/api/criar/agendamentos", AgendamentoController.criarAgenda);
+router.put("/api/atualizar/agendamentos/:id", AgendamentoController.atualizarAgenda);
+router.get("/api/qtd/agendamentos", AgendamentoController.listarQuantidadeDeAgendas);
+router.delete("/api/deletar/agendamentos/:id", AgendamentoController.excluirAgenda);
 
 export default router;

@@ -1,50 +1,102 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Novo Agendamento</title>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/regular/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css" rel="stylesheet">
 </head>
+
 <body class="bg-light">
+
     <nav class="navbar navbar-expand-lg navbar-dark bg-success mb-4 shadow-sm">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="#"><i class="ph ph-heartbeat me-2"></i>Clinica Inteligente</a>
+            <a class="navbar-brand fw-bold" href="/dashboard">
+                <i class="ph ph-heartbeat me-2"></i>
+                Clinica Inteligente
+            </a>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <ul class="navbar-nav me-auto">
+
                     <li class="nav-item">
-                        <a class="nav-link" href="/dashboard"><i class="ph ph-house me-1"></i>Início</a>
+                        <a class="nav-link" href="/dashboard" aria-current="page">
+                            
+                            <i class="ph ph-house me-1"></i>Início
+                        </a>
                     </li>
+
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="pacienteDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
                             <i class="ph ph-users me-1"></i>Paciente
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="pacienteDropdown">
-                            <li><a class="dropdown-item" href="/pacientes"><i class="ph ph-list-bullets me-2"></i>Lista de Pacientes</a></li>
-                            <li><a class="dropdown-item" href="/cadastrar/paciente"><i class="ph ph-user-plus me-2"></i>Cadastrar Paciente</a></li>
+
+                        <ul class="dropdown-menu">
+                            <li> 
+                                <a class="dropdown-item" href="/pacientes"> 
+                                    <i class="ph ph-list-bullets me-2"></i>Lista de Pacientes
+                                </a>
+                            </li>
+
+                            <li> 
+                                
+                                
+                                <a class="dropdown-item" href="/cadastrar/paciente">
+                                    <i class="ph ph-user-plus me-2"></i>Cadastrar Paciente
+                                </a>
+                            </li>
                         </ul>
                     </li>
+
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle active" href="#" id="agendaDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle active" href="#" data-bs-toggle="dropdown">
                             <i class="ph ph-calendar-blank me-1"></i>Agenda
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="agendaDropdown">
-                            <li><a class="dropdown-item" href="/listar/agendamento"><i class="ph ph-list-bullets me-2"></i>Lista de Agendamentos</a></li>
-                            <li><a class="dropdown-item active" href="/criar/agendamento"><i class="ph ph-calendar-plus me-2"></i>Criar Agendamento</a></li>
+
+                        <ul class="dropdown-menu">
+                            <li> 
+                                <a class="dropdown-item" href="/listar/agendamento"> 
+                                    <i class="ph ph-list-bullets me-2"></i>Lista de Agendamentos
+                                </a>
+                            </li>
+
+                            <li> 
+                                
+                                
+                                <a class="dropdown-item active" href="/criar/agendamento">
+                                    <i class="ph ph-calendar-plus me-2"></i>Novo Agendamento
+                                </a>
+                            </li>
                         </ul>
                     </li>
+
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="prontuariosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
                             <i class="ph ph-folder-open me-1"></i>Prontuários
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="prontuariosDropdown">
-                            <li><a class="dropdown-item" href="#"><i class="ph ph-file-search me-2"></i>Ver Prontuários</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="ph ph-file-plus me-2"></i>Criar Prontuário</a></li>
+
+                        <ul class="dropdown-menu">
+                            <li> 
+                                <a class="dropdown-item" href="#"> 
+                                    <i class="ph ph-file-search me-2"></i>Ver Prontuários
+                                </a>
+                            </li>
+
+                            <li> 
+                                
+                                
+                                <a class="dropdown-item" href="/criar/prontuario">
+                                    <i class="ph ph-file-plus me-2"></i>Criar Prontuário
+                                </a>
+                            </li>
                         </ul>
                     </li>
                 </ul>
@@ -52,71 +104,131 @@
 
             <div class="d-flex align-items-center">
                 <span id="welcomeText" class="text-white me-3"></span>
-                <button id="logoutBtn" class="btn btn-danger text-white fw-bold shadow-sm"><i class="ph ph-sign-out me-1"></i>Sair</button>
+                <button id="logoutBtn" class="btn btn-danger" type="button">
+                    
+                    
+                    <i class="ph ph-sign-out me-1"></i>Sair
+                </button>
             </div>
         </div>
     </nav>
 
-    <div class="container pb-5">
-        <div class="row justify-content-center">
-            <div class="col-lg-8">
-                <div class="card border-0 shadow-sm">
-                    <div class="card-header bg-white border-0 py-3">
+    <main class="container-fluid px-4">
+        <div class="row">
+            <section class="col-lg-5 mb-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <header class="card-header bg-white py-3 border-bottom-0">
                         <h4 class="mb-0 text-success fw-bold">
                             <i class="ph ph-calendar-plus me-2"></i>Novo Agendamento
                         </h4>
-                    </div>
-                    <div class="card-body p-4">
+                    </header>
+                    <div class="card-body p-4 pt-0">
                         <form id="agendamentoForm">
-                            <div class="mb-3">
-                                <label class="form-label fw-bold text-muted small text-uppercase"><i class="ph ph-text-t me-1"></i>Título da Sessão</label>
-                                <input id="titulo" class="form-control form-control-lg" placeholder="Ex: Consulta de Rotina" required>
-                            </div>
-                            
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label fw-bold text-muted small text-uppercase"><i class="ph ph-user me-1"></i>Paciente ID</label>
-                                    <input id="paciente_id" class="form-control" placeholder="ID do Paciente" required>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label fw-bold text-muted small text-uppercase"><i class="ph ph-user-gear me-1"></i>Psicólogo ID</label>
-                                    <input id="psicologo_id" class="form-control" placeholder="ID do Profissional" required>
-                                </div>
+                            <div class="mb-3"> 
+                                <label class="form-label fw-bold text-secondary small text-uppercase" for="titulo">
+                                    <i class="ph ph-tag me-1"></i>Título da Sessão
+                                </label>
+                                <input type="text" id="titulo" class="form-control" placeholder="Ex: Terapia Individual"
+                                    required>
                             </div>
 
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label fw-bold text-muted small text-uppercase"><i class="ph ph-calendar me-1"></i>Data Início</label>
-                                    <input type="datetime-local" id="data_inicio" class="form-control" required>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label fw-bold text-muted small text-uppercase"><i class="ph ph-calendar me-1"></i>Data Fim</label>
-                                    <input type="datetime-local" id="data_fim" class="form-control" required>
-                                </div>
-                            </div>
-
-                            <div class="mb-4">
-                                <label class="form-label fw-bold text-muted small text-uppercase"><i class="ph ph-activity me-1"></i>Status</label>
-                                <select id="status" class="form-select">
-                                    <option value="PENDENTE">Pendente</option>
-                                    <option value="CONFIRMADA">Confirmada</option>
-                                    <option value="CANCELADA">Cancelada</option>
+                            <div class="mb-3"> 
+                                <label class="form-label fw-bold text-secondary small text-uppercase" for="paciente">
+                                    <i class="ph ph-user me-1"></i>Paciente
+                                </label>
+                                <select id="paciente" class="form-select" required>
+                                    <option value="">Selecione um paciente</option>
                                 </select>
                             </div>
 
-                            <div class="d-grid gap-2">
-                                <button type="submit" class="btn btn-success btn-lg fw-bold shadow-sm py-3">
-                                    <i class="ph ph-floppy-disk me-2"></i>Salvar Agendamento
+                            <div class="mb-3"> 
+                                <label class="form-label fw-bold text-secondary small text-uppercase" for="data_sessao">
+                                    <i class="ph ph-calendar me-1"></i>Data
+                                </label>
+                                <input type="date" id="data_sessao" class="form-control" required>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3"> 
+                                    <label class="form-label fw-bold text-secondary small text-uppercase" for="horario_inicio">
+                                        <i class="ph ph-clock me-1"></i>Horário Inicial
+                                    </label>
+                                    <input type="time" id="horario_inicio" class="form-control" required>
+                                </div>
+                                <div class="col-md-6 mb-3"> 
+                                    <label class="form-label fw-bold text-secondary small text-uppercase" for="horario_fim">
+                                        <i class="ph ph-clock me-1"></i>Horário Final
+                                    </label>
+                                    <input type="time" id="horario_fim" class="form-control" required>
+                                </div>
+                            </div>
+
+                            <div class="mb-3"> 
+                                <label class="form-label fw-bold text-secondary small text-uppercase" for="status">
+                                    <i class="ph ph-info me-1"></i>Status
+                                </label>
+
+                                <select id="status" class="form-select">
+                                    <option value="PENDENTE">
+                                        🟡 Pendente
+                                    </option>
+                                    <option value="CONFIRMADA">🟢 Confirmada</option>
+                                    <option value="CANCELADA">🔴 Cancelada</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-4"> 
+                                <label class="form-label fw-bold text-secondary small text-uppercase" for="descricao">
+                                    <i class="ph ph-note me-1"></i>Descrição
+                                </label>
+                                <textarea id="descricao" class="form-control" rows="4" placeholder="Observações da sessão"></textarea>
+                            </div>
+
+                            <div class="d-grid gap-2"> 
+                                <button type="submit" class="btn btn-success btn-lg fw-bold"> 
+                                    <i class="ph ph-floppy-disk me-2"></i>
+                                    Salvar Agendamento
                                 </button>
-                                <a href="/dashboard" class="btn btn-link text-muted">Cancelar</a>
+
+                                <a href="/listar/agendamento" class="btn btn-outline-secondary">
+                                    Cancelar
+                                </a>
                             </div>
                         </form>
                     </div>
                 </div>
-            </div>
+            </section>
+
+            <section class="col-lg-7 mb-4">
+                <div class="card border-0 shadow-sm h-100 d-flex flex-column">
+                    <header class="card-header bg-white py-3 border-bottom-0">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0 text-muted fw-bold small text-uppercase">
+                                Visualização da Agenda
+                            </h5> 
+                            <div class="d-flex gap-3">
+                                <span>🟢 Confirmada</span>
+                                <span>🟡 Pendente</span>
+                                <span>🔴 Cancelada</span>
+                            </div>
+
+                        </div>
+                    </header>
+
+                    <div class="card-body bg-white rounded-bottom flex-grow-1"> 
+                        <div id="calendar"></div>
+                    </div>
+                </div>
+            </section>
         </div>
-    </div>
+    </main>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script type="module" src="/js/criarAgenda.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+
+    <script type="module" src="../js/calendario.js"></script>
+    <script type="module" src="../js/criarAgenda.js"></script>
+
 </body>
+
 </html>

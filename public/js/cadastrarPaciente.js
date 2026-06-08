@@ -19,7 +19,7 @@ pacienteForm.addEventListener("submit", async (event) => {
     }
 
     try {
-        const res = await fetch("/cadastrar/paciente", {
+        const res = await fetch("/api/cadastrar/paciente", {
             method: "POST",
             headers: { "Content-type": "application/json" },
             body: JSON.stringify(pacienteInfo)

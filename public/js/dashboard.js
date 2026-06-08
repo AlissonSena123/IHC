@@ -2,7 +2,7 @@ async function qtdPacientes() {
     const qtd = document.getElementById("countPacientes");
 
     try {
-        const res = await fetch("/qtd/pacientes");
+        const res = await fetch("/api/qtd/pacientes");
         const data = await res.json();
 
         qtd.innerHTML = data.count;
@@ -12,6 +12,7 @@ async function qtdPacientes() {
     }
 }
 
+<<<<<<< HEAD
 async function carregarUsuario() {
     try {
         const response = await fetch("/auth/me", {
@@ -36,4 +37,21 @@ async function carregarUsuario() {
 }
 
 carregarUsuario();
+=======
+async function qtdAgenda() {
+    const qtd = document.getElementById("countAgendamentos");
+
+    try {
+        const res = await fetch("/api/qtd/agendamentos");
+        const data = await res.json();
+
+        qtd.innerHTML = data.count;
+
+    } catch (error) {
+        console.log("ERRO: ", error)
+    }
+}
+
+qtdAgenda();
+>>>>>>> c7f6288fef35e2d3f92eea395db01c254b6b4244
 qtdPacientes();

@@ -36,7 +36,7 @@ export default class PacienteModel {
             .from("paciente")
             .select("*", { count: "exact", head: true })
 
-        if (error) return "Sem pacientes";
+        if (error) throw error;
 
         return count;
     }
