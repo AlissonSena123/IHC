@@ -24,7 +24,7 @@ export default class ProntuarioController {
         try {
             const prontuario = await ProntuarioService.atualizarProntuario(req.params.id, req.body);
 
-            req.json(prontuario);
+            res.json(prontuario);
         } catch (error) {
             res.status(500).json({erro: error.message});
         }

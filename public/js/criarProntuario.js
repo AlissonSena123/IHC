@@ -2,7 +2,10 @@ const prontuarioForm = document.getElementById("prontuarioForm");
 
 async function carregarPacientes() {
     try {
-        const response = await fetch("/api/listar/pacientes");
+        //adicao de include por causa da protecao da rota, para enviar os cookies de autenticacao
+        const response = await fetch("/api/listar/pacientes", {
+            credentials: "include" // ← essa linha
+        });
 
         if (!response.ok) {
             throw new Error("Erro ao buscar pacientes");
@@ -45,9 +48,11 @@ prontuarioForm.addEventListener("submit", async (e) => {
     };
 
     try {
+        //adicao de include por causa da protecao da rota, para enviar os cookies de autenticacao
         const response = await fetch("/api/criar/prontuarios", {
             method: "POST",
-            headers: { "Content-Type": "application/json"},
+            headers: { "Content-Type": "application/json" },
+            credentials: "include", // ← essa linha
             body: JSON.stringify(dados)
         });
 

@@ -18,7 +18,7 @@ export default class ProntuarioModel {
             .from("prontuario")
             .select("*")
             .eq("paciente_id", id)
-            .single();
+            .maybeSingle();
 
         if (error) throw error;
 
