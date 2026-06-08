@@ -33,7 +33,7 @@ export default class AgendamentoController {
 
             const { id } = req.params;
 
-            const resultado =await AgendamentoService.atualizarAgenda(id, req.body);
+            const resultado = await AgendamentoService.atualizarAgenda(id, req.body);
 
             return res.json(resultado);
 
@@ -52,7 +52,7 @@ export default class AgendamentoController {
 
             await AgendamentoService.excluir(id);
 
-            return res.json({mensagem: "Excluído"});
+            return res.json({mensagem: "Agendamento removido com sucesso"});
 
         } catch (error) {
 

@@ -8,24 +8,20 @@ export default class AgendamentoModel {
     static async listarAgenda() {
         const { data, error } = await supabase
             .from("agendamentos")
-            .select(`
-                *,
-                paciente(nome),
-                psicologo(nome)
-            `);
+            .select(`*, paciente(nome, sobrenome)`)
+            .order("data_sessao");
 
         if (error) throw error;
 
         return data;
     }
 
-    // Busca um agendamento específico pelo id
-    static async buscarAgendaPorId(id) {
+    // Busca um agendamento específico pela data
+    static async buscarPorData(dataSessao) {
         const { data, error } = await supabase
             .from("agendamentos")
             .select("*")
-            .eq("id", id)
-            .single();
+            .eq("data_sessao", dataSessao);
 
         if (error) throw error;
 
