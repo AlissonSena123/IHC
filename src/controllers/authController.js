@@ -1,4 +1,5 @@
 import AuthService from "../services/authService.js";
+import UsuarioModel from "../model/usuarioModel.js";
 
 export default class AuthController {
     static async cadastro(req, res) {
@@ -21,7 +22,7 @@ export default class AuthController {
             res.cookie('token', token, {
                 httpOnly: true,
                 secure: process.env.NODE_ENV === 'production', // só HTTPS em prod
-                sameSite: 'strict',
+                sameSite: 'lax',
                 maxAge: 8 * 60 * 60 * 1000 // 8h em ms
             });
 

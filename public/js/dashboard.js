@@ -12,7 +12,6 @@ async function qtdPacientes() {
     }
 }
 
-<<<<<<< HEAD
 async function carregarUsuario() {
     try {
         const response = await fetch("/auth/me", {
@@ -21,7 +20,7 @@ async function carregarUsuario() {
 
         if (!response.ok) {
             // Token inválido ou expirado, manda pro login
-            window.location.href = "/login";
+            window.location.href = "/";
             return;
         }
 
@@ -32,12 +31,10 @@ async function carregarUsuario() {
         document.getElementById("perfilUsuario").textContent = usuario.perfil;
 
     } catch (error) {
-        window.location.href = "/login";
+        window.location.href = "/";
     }
 }
 
-carregarUsuario();
-=======
 async function qtdAgenda() {
     const qtd = document.getElementById("countAgendamentos");
 
@@ -52,6 +49,6 @@ async function qtdAgenda() {
     }
 }
 
+carregarUsuario();
 qtdAgenda();
->>>>>>> c7f6288fef35e2d3f92eea395db01c254b6b4244
 qtdPacientes();
