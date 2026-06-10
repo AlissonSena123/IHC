@@ -1,115 +1,73 @@
 import { Router } from "express";
 import path from "path";
 import { fileURLToPath } from "url";
+import jwt from "jsonwebtoken";   // ← adiciona
+import cookie from "cookie";      // ← adiciona
 
 const router = Router();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-/** Aqui ficam as rotas das paginas do nosso projeto */
+// Middleware de proteção
+function paginaProtegida(req, res, next) {
+    const cookies = cookie.parse(req.headers.cookie || '');
+    const token = cookies.token;
 
-// Login
+    if (!token) return res.redirect("/");
+
+    try {
+        jwt.verify(token, process.env.JWT_SECRET);
+        next();
+    } catch {
+        return res.redirect("/");
+    }
+}
+
+// ✅ Públicas
 router.get("/", (req, res) => {
-    res.sendFile(
-        path.join(
-            __dirname,
-            "../../public/views/login.html"
-        )
-    );
+    res.sendFile(path.join(__dirname, "../../public/views/login.html"));
 });
 
-// Cadastro
 router.get("/cadastro", (req, res) => {
-    res.sendFile(
-        path.join(
-            __dirname,
-            "../../public/views/cadastro.html"
-        )
-    );
+    res.sendFile(path.join(__dirname, "../../public/views/cadastro.html"));
 });
 
-// Dashboard
-router.get("/dashboard", (req, res) => {
-    res.sendFile(
-        path.join(
-            __dirname,
-            "../../public/views/dashboard.html"
-        )
-    );
+// 🔒 Protegidas
+router.get("/dashboard", paginaProtegida, (req, res) => {
+    res.sendFile(path.join(__dirname, "../../public/views/dashboard.html"));
 });
 
-// Paciente
-router.get("/cadastrar/paciente", (req, res) => {
-    res.sendFile(
-        path.join(
-            __dirname,
-            "../../public/views/cadastrarPaciente.html"
-        )
-    );
+router.get("/pacientes", paginaProtegida, (req, res) => {
+    res.sendFile(path.join(__dirname, "../../public/views/listarPacientes.html"));
 });
 
-router.get("/pacientes", (req, res) => {
-    res.sendFile(
-        path.join(
-            __dirname,
-            "../../public/views/listarPacientes.html"
-        )
-    );
+router.get("/cadastrar/paciente", paginaProtegida, (req, res) => {
+    res.sendFile(path.join(__dirname, "../../public/views/cadastrarPaciente.html"));
 });
 
-
-// Agenda
-router.get("/criar/agendamento", (req, res) => {
-    res.sendFile(
-        path.join(
-            __dirname,
-            "../../public/views/criarAgenda.html"
-        )
-    );
+router.get("/criar/agendamento", paginaProtegida, (req, res) => {
+    res.sendFile(path.join(__dirname, "../../public/views/criarAgenda.html"));
 });
 
-router.get("/listar/agendamento", (req, res) => {
-    res.sendFile(
-        path.join(
-            __dirname,
-            "../../public/views/listarAgenda.html"
-        )
-    );
+router.get("/listar/agendamento", paginaProtegida, (req, res) => {
+    res.sendFile(path.join(__dirname, "../../public/views/listarAgenda.html"));
 });
 
-//Prontuarios
-router.get("/listar/prontuario", (req, res) => {
-    res.sendFile(
-        path.join(
-            __dirname,
-            "../../public/views/listarProntuarios.html"
-        )
-    );
+router.get("/criar/prontuario", paginaProtegida, (req, res) => {
+    res.sendFile(path.join(__dirname, "../../public/views/criarProntuario.html"));
 });
 
-router.get("/criar/prontuario", (req, res) => {
-    res.sendFile(
-        path.join(
-            __dirname,
-            "../../public/views/criarProntuario.html"
-        )
-    );
+router.get("/ver/prontuario/:id", paginaProtegida, (req, res) => {
+    res.sendFile(path.join(__dirname, "../../public/views/verProntuario.html"));
 });
 
-router.get("/ver/prontuario/:id", (req, res) => {
-    res.sendFile(
-        path.join(__dirname, "../../public/views/verProntuario.html")
-    );
+router.get("/agendamento-editar", paginaProtegida, (req, res) => {
+    res.sendFile(path.join(__dirname, "../../public/views/editarAgenda.html"));
 });
 
-router.get("/agendamento-editar", (req, res) => {
-    res.sendFile(
-        path.join(
-            __dirname,
-            "../../public/views/editarAgenda.html"
-        )
-    );
+router.get("/listar/prontuario", paginaProtegida, (req, res) => {
+    res.sendFile(path.join(__dirname, "../../public/views/listarProntuario.html"));
 });
 
 export default router;
