@@ -19,16 +19,14 @@ async function carregarUsuario() {
         });
 
         if (!response.ok) {
-            // Token inválido ou expirado, manda pro login
             window.location.href = "/";
             return;
         }
 
         const usuario = await response.json();
 
-        // Usa os dados na tela
-        document.getElementById("nomeUsuario").textContent = usuario.nome;
-        document.getElementById("perfilUsuario").textContent = usuario.perfil;
+        // ✅ usa o ID que realmente existe no HTML
+        document.getElementById("welcomeText").textContent = `Olá, ${usuario.nome}`;
 
     } catch (error) {
         window.location.href = "/";
