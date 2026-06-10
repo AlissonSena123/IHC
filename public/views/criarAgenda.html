@@ -29,7 +29,7 @@
 
                     <li class="nav-item">
                         <a class="nav-link" href="/dashboard" aria-current="page">
-                            
+
                             <i class="ph ph-house me-1"></i>Início
                         </a>
                     </li>
@@ -40,15 +40,13 @@
                         </a>
 
                         <ul class="dropdown-menu">
-                            <li> 
-                                <a class="dropdown-item" href="/pacientes"> 
+                            <li>
+                                <a class="dropdown-item" href="/pacientes">
                                     <i class="ph ph-list-bullets me-2"></i>Lista de Pacientes
                                 </a>
                             </li>
 
-                            <li> 
-                                
-                                
+                            <li>
                                 <a class="dropdown-item" href="/cadastrar/paciente">
                                     <i class="ph ph-user-plus me-2"></i>Cadastrar Paciente
                                 </a>
@@ -62,15 +60,13 @@
                         </a>
 
                         <ul class="dropdown-menu">
-                            <li> 
-                                <a class="dropdown-item" href="/listar/agendamento"> 
+                            <li>
+                                <a class="dropdown-item" href="/listar/agendamento">
                                     <i class="ph ph-list-bullets me-2"></i>Lista de Agendamentos
                                 </a>
                             </li>
 
-                            <li> 
-                                
-                                
+                            <li>
                                 <a class="dropdown-item active" href="/criar/agendamento">
                                     <i class="ph ph-calendar-plus me-2"></i>Novo Agendamento
                                 </a>
@@ -84,17 +80,36 @@
                         </a>
 
                         <ul class="dropdown-menu">
-                            <li> 
-                                <a class="dropdown-item" href="#"> 
+                            <li>
+                                <a class="dropdown-item" href="#">
                                     <i class="ph ph-file-search me-2"></i>Ver Prontuários
                                 </a>
                             </li>
 
-                            <li> 
-                                
-                                
+                            <li>
                                 <a class="dropdown-item" href="/criar/prontuario">
                                     <i class="ph ph-file-plus me-2"></i>Criar Prontuário
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="financeiroDropdown"
+                            data-bs-toggle="dropdown">
+                            <i class="ph ph-currency-dollar me-1"></i>
+                            Financeiro
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item" href="/financeiro">
+                                    <i class="ph ph-chart-line-up me-2"></i>
+                                    Visão Geral
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <i class="ph ph-receipt me-2"></i>
+                                    Faturamentos
                                 </a>
                             </li>
                         </ul>
@@ -105,8 +120,8 @@
             <div class="d-flex align-items-center">
                 <span id="welcomeText" class="text-white me-3"></span>
                 <button id="logoutBtn" class="btn btn-danger" type="button">
-                    
-                    
+
+
                     <i class="ph ph-sign-out me-1"></i>Sair
                 </button>
             </div>
@@ -124,7 +139,7 @@
                     </header>
                     <div class="card-body p-4 pt-0">
                         <form id="agendamentoForm">
-                            <div class="mb-3"> 
+                            <div class="mb-3">
                                 <label class="form-label fw-bold text-secondary small text-uppercase" for="titulo">
                                     <i class="ph ph-tag me-1"></i>Título da Sessão
                                 </label>
@@ -132,7 +147,7 @@
                                     required>
                             </div>
 
-                            <div class="mb-3"> 
+                            <div class="mb-3">
                                 <label class="form-label fw-bold text-secondary small text-uppercase" for="paciente">
                                     <i class="ph ph-user me-1"></i>Paciente
                                 </label>
@@ -141,7 +156,7 @@
                                 </select>
                             </div>
 
-                            <div class="mb-3"> 
+                            <div class="mb-3">
                                 <label class="form-label fw-bold text-secondary small text-uppercase" for="data_sessao">
                                     <i class="ph ph-calendar me-1"></i>Data
                                 </label>
@@ -149,21 +164,23 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-md-6 mb-3"> 
-                                    <label class="form-label fw-bold text-secondary small text-uppercase" for="horario_inicio">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold text-secondary small text-uppercase"
+                                        for="horario_inicio">
                                         <i class="ph ph-clock me-1"></i>Horário Inicial
                                     </label>
                                     <input type="time" id="horario_inicio" class="form-control" required>
                                 </div>
-                                <div class="col-md-6 mb-3"> 
-                                    <label class="form-label fw-bold text-secondary small text-uppercase" for="horario_fim">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold text-secondary small text-uppercase"
+                                        for="horario_fim">
                                         <i class="ph ph-clock me-1"></i>Horário Final
                                     </label>
                                     <input type="time" id="horario_fim" class="form-control" required>
                                 </div>
                             </div>
 
-                            <div class="mb-3"> 
+                            <div class="mb-3">
                                 <label class="form-label fw-bold text-secondary small text-uppercase" for="status">
                                     <i class="ph ph-info me-1"></i>Status
                                 </label>
@@ -177,15 +194,16 @@
                                 </select>
                             </div>
 
-                            <div class="mb-4"> 
+                            <div class="mb-4">
                                 <label class="form-label fw-bold text-secondary small text-uppercase" for="descricao">
                                     <i class="ph ph-note me-1"></i>Descrição
                                 </label>
-                                <textarea id="descricao" class="form-control" rows="4" placeholder="Observações da sessão"></textarea>
+                                <textarea id="descricao" class="form-control" rows="4"
+                                    placeholder="Observações da sessão"></textarea>
                             </div>
 
-                            <div class="d-grid gap-2"> 
-                                <button type="submit" class="btn btn-success btn-lg fw-bold"> 
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-success btn-lg fw-bold">
                                     <i class="ph ph-floppy-disk me-2"></i>
                                     Salvar Agendamento
                                 </button>
@@ -205,7 +223,7 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <h5 class="mb-0 text-muted fw-bold small text-uppercase">
                                 Visualização da Agenda
-                            </h5> 
+                            </h5>
                             <div class="d-flex gap-3">
                                 <span>🟢 Confirmada</span>
                                 <span>🟡 Pendente</span>
@@ -215,7 +233,7 @@
                         </div>
                     </header>
 
-                    <div class="card-body bg-white rounded-bottom flex-grow-1"> 
+                    <div class="card-body bg-white rounded-bottom flex-grow-1">
                         <div id="calendar"></div>
                     </div>
                 </div>

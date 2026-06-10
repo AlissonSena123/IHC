@@ -88,4 +88,19 @@ router.get("/criar/prontuario", (req, res) => {
     );
 });
 
+
+//Financeiro
+router.get(
+    "/financeiro",
+    (req, res) => {
+
+        res.sendFile(
+            path.join(
+                __dirname,
+                "../../public/views/financeiro.html"
+            )
+        );
+    }
+);
+
 export default router;
