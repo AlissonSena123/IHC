@@ -69,4 +69,20 @@ export default class AgendamentoController {
             res.status(500).json({ erro: error.message });
         }
     }
+
+    static async agendamentosRecentes(req, res) {
+        try {
+            const dados = await AgendamentoService.listarAgenda();
+
+            const hoje = new Date().toISOString().split("T")[0];
+
+            const recentes = dados
+                .filter(a => a.data_sessao >= hoje && a.status !== "CANCELADA")
+                .slice(0, 5);
+
+            return res.json(recentes);
+        } catch (error) {
+            return res.status(500).json({ erro: error.message });
+        }
+    }
 }
