@@ -20,9 +20,9 @@ export default class AuthController {
             // Seta o cookie HttpOnly aqui
             res.cookie('token', token, {
                 httpOnly: true,
-                secure: process.env.NODE_ENV === 'production', // só HTTPS em prod
-                sameSite: 'strict',
-                maxAge: 8 * 60 * 60 * 1000 // 8h em ms
+                secure: true,           // ← sempre true (Vercel é sempre HTTPS)
+                sameSite: 'none',       // ← permite cookie entre domínios diferentes
+                maxAge: 8 * 60 * 60 * 1000
             });
 
             // Retorna só os dados do usuário (sem o token no body)
