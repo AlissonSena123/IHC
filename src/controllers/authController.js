@@ -34,16 +34,17 @@ export default class AuthController {
         }
     }
 
+    // authController.js — método me()
     static async me(req, res) {
         try {
-            // req.usuario já vem do authMiddleware (id e perfil do token)
+            res.setHeader('Cache-Control', 'no-store'); // ← adiciona essa linha
+
             const usuario = await UsuarioModel.buscarPorId(req.usuario.id);
 
             if (!usuario) {
                 return res.status(404).json({ erro: "Usuário não encontrado" });
             }
 
-            // Retorna sem a senha
             const { senha, ...dadosPublicos } = usuario;
             return res.status(200).json(dadosPublicos);
 
