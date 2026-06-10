@@ -1,4 +1,5 @@
 import AuthService from "../services/authService.js";
+import UsuarioModel from "../model/usuarioModel.js";
 
 export default class AuthController {
     static async cadastro(req, res) {
