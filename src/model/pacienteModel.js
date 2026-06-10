@@ -42,10 +42,29 @@ export default class PacienteModel {
     }
 
     static async deletarPaciente(id) {
-        const { data, error } = await supabase
+        // Deleta evoluções de sessão do paciente
+        await supabase
+            .from("evolucao_sessao")
+            .delete()
+            .eq("paciente_id", id);
+
+        // Deleta prontuário do paciente
+        await supabase
+            .from("prontuario")
+            .delete()
+            .eq("paciente_id", id);
+
+        // Deleta agendamentos do paciente
+        await supabase
+            .from("agendamentos")
+            .delete()
+            .eq("paciente_id", id);
+
+        // Agora deleta o paciente
+        const { error } = await supabase
             .from("paciente")
             .delete()
-            .eq("id", id)
+            .eq("id", id);
 
         if (error) throw error;
 
