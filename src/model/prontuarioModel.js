@@ -50,15 +50,14 @@ export default class ProntuarioModel {
         return data;
     }
 
-    static async listarEvolucao(id) {
+    static async listarEvolucao(paciente_id) {
         const { data, error } = await supabase
             .from("evolucao_sessao")
             .select("*")
-            eq("id", id)
-            .single();
+            .eq("paciente_id", paciente_id)  // ← encadeado corretamente
+            .order("data_sessao", { ascending: false }); // ← mais recente primeiro
 
         if (error) throw error;
-
         return data;
     }
 }

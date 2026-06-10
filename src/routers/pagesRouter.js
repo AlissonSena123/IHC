@@ -88,4 +88,13 @@ router.get("/criar/prontuario", (req, res) => {
     );
 });
 
+router.get("/ver/prontuario/:id", (req, res) => {
+    res.sendFile(
+        path.join(
+            __dirname,
+            "../../public/views/verProntuario.html"
+        )
+    );
+});
+
 export default router;
