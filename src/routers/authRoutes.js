@@ -8,5 +8,5 @@ const router = Router();
 router.post("/auth/register", AuthController.cadastro);
 router.post("/auth/login", AuthController.login);
 router.get("/auth/me", authMiddleware, AuthController.me);
-
+router.post("/auth/logout", AuthController.logout);
 export default router;

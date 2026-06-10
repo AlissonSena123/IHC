@@ -52,4 +52,13 @@ export default class AuthController {
             return res.status(500).json({ erro: error.message });
         }
     }
+
+    static async logout(req, res) {
+        res.clearCookie('token', {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'lax'
+        });
+        return res.status(200).json({ success: true });
+    }
 }
