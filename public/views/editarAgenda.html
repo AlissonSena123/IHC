@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Agendamento - Clínica Inteligente</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/regular/style.css">
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success mb-4 shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="/dashboard">
+                <i class="ph ph-heartbeat me-2"></i>Clinica Inteligente
+            </a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/dashboard"><i class="ph ph-house me-1"></i>Início</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                            <i class="ph ph-users me-1"></i>Paciente
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/pacientes"><i class="ph ph-list-bullets me-2"></i>Lista de Pacientes</a></li>
+                            <li><a class="dropdown-item" href="/cadastrar/paciente"><i class="ph ph-user-plus me-2"></i>Cadastrar Paciente</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" data-bs-toggle="dropdown">
+                            <i class="ph ph-calendar-blank me-1"></i>Agenda
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/listar/agendamento"><i class="ph ph-list-bullets me-2"></i>Lista de Agendamentos</a></li>
+                            <li><a class="dropdown-item" href="/criar/agendamento"><i class="ph ph-calendar-plus me-2"></i>Criar Agendamento</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                            <i class="ph ph-folder-open me-1"></i>Prontuários
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/listar/prontuario"><i class="ph ph-file-search me-2"></i>Ver Prontuários</a></li>
+                            <li><a class="dropdown-item" href="/criar/prontuario"><i class="ph ph-file-plus me-2"></i>Criar Prontuário</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="d-flex align-items-center">
+                <button id="logoutBtn" class="btn btn-danger text-white fw-bold shadow-sm">
+                    <i class="ph ph-sign-out me-1"></i>Sair
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mb-5">
+        <div class="row justify-content-center">
+            <section class="col-lg-8">
+                <div class="card border-0 shadow-sm">
+                    <header class="card-header bg-white py-3">
+                        <h4 class="mb-0 text-success fw-bold">
+                            <i class="ph ph-calendar-check me-2"></i>Editar Agendamento
+                        </h4>
+                    </header>
+                    <div class="card-body p-4">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold text-secondary small text-uppercase">Título</label>
+                            <input type="text" id="titulo" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold text-secondary small text-uppercase">Status</label>
+                            <select id="status" class="form-select">
+                                <option value="PENDENTE">🟡 Pendente</option>
+                                <option value="CONFIRMADA">🟢 Confirmada</option>
+                                <option value="CANCELADA">🔴 Cancelada</option>
+                                <option value="REALIZADA">🔵 Realizada</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold text-secondary small text-uppercase">Data</label>
+                            <input type="date" id="data_sessao" class="form-control" required>
+                        </div>
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold text-secondary small text-uppercase">Horário Início</label>
+                                <input type="time" id="horario_inicio" class="form-control" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold text-secondary small text-uppercase">Horário Fim</label>
+                                <input type="time" id="horario_fim" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="/listar/agendamento" class="btn btn-outline-secondary px-4">
+                                Cancelar
+                            </a>
+                            <button id="btnSalvar" class="btn btn-success px-5 fw-bold">
+                                <i class="ph ph-floppy-disk me-2"></i>Salvar Alterações
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="/js/editarAgenda.js"></script>
+</body>
+</html>

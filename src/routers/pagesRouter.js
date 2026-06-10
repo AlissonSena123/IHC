@@ -103,4 +103,13 @@ router.get("/ver/prontuario/:id", (req, res) => {
     );
 });
 
+router.get("/agendamento-editar", (req, res) => {
+    res.sendFile(
+        path.join(
+            __dirname,
+            "../../public/views/editarAgenda.html"
+        )
+    );
+});
+
 export default router;
