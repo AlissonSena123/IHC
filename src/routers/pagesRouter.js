@@ -67,7 +67,7 @@ router.get("/agendamento-editar", paginaProtegida, (req, res) => {
 });
 
 router.get("/listar/prontuario", paginaProtegida, (req, res) => {
-    res.sendFile(path.join(__dirname, "../../public/views/listarProntuario.html"));
+    res.sendFile(path.join(__dirname, "../../public/views/listarProntuarios.html"));
 });
 
 export default router;
