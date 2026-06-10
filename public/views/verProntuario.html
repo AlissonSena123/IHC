@@ -48,7 +48,7 @@
                 </ul>
             </div>
             <div class="d-flex align-items-center">
-                <span id="welcomeText" class="text-white me-3"></span>
+                <span id="navWelcomeText" class="text-white me-3"></span>
                 <button id="logoutBtn" class="btn btn-danger text-white fw-bold shadow-sm">
                     <i class="ph ph-sign-out me-1"></i>Sair
                 </button>
@@ -58,88 +58,96 @@
 
     <main class="container mb-5">
         <!-- Dados do Prontuário -->
-        <div class="card border-0 shadow-sm mb-4">
-            <div class="card-header bg-white py-3">
-                <h4 class="mb-0 text-success fw-bold">
-                    <i class="ph ph-folder-open me-2"></i>
-                    Prontuário de <span id="nomePaciente">...</span>
-                </h4>
-            </div>
-            <div class="card-body p-4">
-                <!-- Mensagem se não tiver prontuário -->
-                <div id="semProntuario" class="text-center text-muted py-4 d-none">
-                    <i class="ph ph-file-x fs-1"></i>
-                    <p class="mt-2">Este paciente não possui prontuário cadastrado.</p>
-                    <a href="/criar/prontuario" class="btn btn-success btn-sm">Criar Prontuário</a>
-                </div>
-                <!-- Dados do prontuário -->
-                <div id="dadosProntuario">
-                    <div class="row g-3">
-                        <div class="col-md-8">
-                            <label class="fw-bold text-secondary small text-uppercase">Queixa Principal</label>
-                            <p id="queixaPrincipal" class="mb-0">—</p>
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0 text-success fw-bold">
+                            <i class="ph ph-folder-open me-2"></i>
+                            Prontuário de <span id="nomePaciente">Carregando...</span>
+                        </h4>
+                        <span id="statusProntuarioBadge" class="badge bg-secondary"></span>
+                    </div>
+                    <div class="card-body p-4">
+                        <!-- Mensagem se não tiver prontuário -->
+                        <div id="semProntuario" class="text-center text-muted py-5 d-none">
+                            <i class="ph ph-file-x fs-1 text-danger mb-3"></i>
+                            <h5 class="fw-bold">Este paciente não possui prontuário cadastrado.</h5>
+                            <p class="mb-4">Crie um novo prontuário para registrar as informações clínicas.</p>
+                            <a href="/criar/prontuario" class="btn btn-success btn-lg fw-bold shadow-sm">
+                                <i class="ph ph-file-plus me-2"></i>Criar Prontuário
+                            </a>
                         </div>
-                        <div class="col-md-4">
-                            <label class="fw-bold text-secondary small text-uppercase">Status</label>
-                            <p id="statusProntuario" class="mb-0">—</p>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="fw-bold text-secondary small text-uppercase">Histórico Clínico</label>
-                            <p id="historicoClinco" class="mb-0">—</p>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="fw-bold text-secondary small text-uppercase">Histórico Familiar</label>
-                            <p id="historicoFamiliar" class="mb-0">—</p>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="fw-bold text-secondary small text-uppercase">Medicamentos</label>
-                            <p id="medicamentos" class="mb-0">—</p>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="fw-bold text-secondary small text-uppercase">Observações Gerais</label>
-                            <p id="observacoes" class="mb-0">—</p>
+                        <!-- Dados do prontuário -->
+                        <div id="dadosProntuario">
+                            <p class="text-center text-muted py-4" id="loadingProntuario">Carregando dados do prontuário...</p>
+                            <div class="row g-4 d-none" id="prontuarioContent">
+                                <div class="col-md-12">
+                                    <label class="fw-bold text-secondary small text-uppercase mb-1"><i class="ph ph-stethoscope me-1"></i>Queixa Principal</label>
+                                    <p id="queixaPrincipal" class="mb-0 text-dark fs-5 fw-medium">—</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="fw-bold text-secondary small text-uppercase mb-1"><i class="ph ph-activity me-1"></i>Histórico Clínico</label>
+                                    <p id="historicoClinco" class="mb-0 text-dark">—</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="fw-bold text-secondary small text-uppercase mb-1"><i class="ph ph-users-three me-1"></i>Histórico Familiar / Social</label>
+                                    <p id="historicoFamiliar" class="mb-0 text-dark">—</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="fw-bold text-secondary small text-uppercase mb-1"><i class="ph ph-prescription me-1"></i>Medicamentos em Uso</label>
+                                    <p id="medicamentos" class="mb-0 text-dark">—</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="fw-bold text-secondary small text-uppercase mb-1"><i class="ph ph-note me-1"></i>Observações Gerais</label>
+                                    <p id="observacoes" class="mb-0 text-dark">—</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
 
-        <!-- Evoluções de Sessão -->
-        <div class="card border-0 shadow-sm">
-            <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
-                <h5 class="mb-0">
-                    <i class="ph ph-clock-counter-clockwise me-2 text-success"></i>Evoluções de Sessão
-                </h5>
-                <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#modalEvolucao">
-                    <i class="ph ph-plus me-1"></i>Nova Evolução
-                </button>
-            </div>
-            <div class="card-body p-0">
-                <div id="listaEvolucoes" class="p-4 text-muted">Carregando...</div>
+                <!-- Evoluções de Sessão -->
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0 fw-bold">
+                            <i class="ph ph-clock-counter-clockwise me-2 text-success"></i>Evoluções de Sessão
+                        </h5>
+                        <button class="btn btn-success btn-sm fw-bold" data-bs-toggle="modal" data-bs-target="#modalEvolucao">
+                            <i class="ph ph-plus me-1"></i>Nova Evolução
+                        </button>
+                    </div>
+                    <div class="card-body p-0">
+                        <div id="listaEvolucoes" class="list-group list-group-flush">
+                            <p class="text-center text-muted py-4 mb-0" id="loadingEvolucoes">Carregando evoluções...</p>
+                            <!-- Evoluções serão carregadas aqui pelo JS -->
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
 
     <!-- Modal Nova Evolução -->
     <div class="modal fade" id="modalEvolucao" tabindex="-1">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Nova Evolução de Sessão</h5>
+                    <h5 class="modal-title fw-bold text-success"><i class="ph ph-file-plus me-2"></i>Nova Evolução de Sessão</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label class="form-label fw-bold">Data da Sessão</label>
+                        <label class="form-label fw-bold text-secondary small text-uppercase">Data da Sessão</label>
                         <input type="date" id="dataSessao" class="form-control" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label fw-bold">Observações Clínicas</label>
+                        <label class="form-label fw-bold text-secondary small text-uppercase">Observações Clínicas</label>
                         <textarea id="observacoesEvolucao" class="form-control" rows="4"
                             placeholder="Descreva as observações da sessão..."></textarea>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label fw-bold">Status</label>
+                        <label class="form-label fw-bold text-secondary small text-uppercase">Status</label>
                         <select id="statusEvolucao" class="form-select">
                             <option value="PENDENTE">🟡 Pendente</option>
                             <option value="CONCLUIDO">🟢 Concluído</option>
@@ -147,8 +155,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-success" id="salvarEvolucao">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-success fw-bold" id="salvarEvolucao">
                         <i class="ph ph-floppy-disk me-1"></i>Salvar
                     </button>
                 </div>

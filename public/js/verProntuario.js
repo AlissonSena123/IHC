@@ -4,28 +4,50 @@
 const pacienteId = window.location.pathname.split("/").pop();
 
 async function carregarProntuario() {
+    const loadingProntuario = document.getElementById("loadingProntuario");
+    const prontuarioContent = document.getElementById("prontuarioContent");
+    const semProntuario = document.getElementById("semProntuario");
+    const statusProntuarioBadge = document.getElementById("statusProntuarioBadge");
+
+    loadingProntuario.classList.remove("d-none");
+    prontuarioContent.classList.add("d-none");
+    semProntuario.classList.add("d-none");
+
     try {
         const response = await fetch(`/api/buscar/paciente/${pacienteId}`, {
             credentials: "include"
         });
 
         if (response.status === 404) {
-            document.getElementById("dadosProntuario").classList.add("d-none");
-            document.getElementById("semProntuario").classList.remove("d-none");
+            semProntuario.classList.remove("d-none");
+            loadingProntuario.classList.add("d-none");
             return;
         }
 
         const prontuario = await response.json();
 
         document.getElementById("queixaPrincipal").textContent = prontuario.queixa_principal || "—";
-        document.getElementById("historicoClinco").textContent = prontuario.historico_clinico || "—";
-        document.getElementById("historicoFamiliar").textContent = prontuario.historico_familiar || "—";
+        document.getElementById("historicoClinco").innerHTML = prontuario.historico_clinico ? prontuario.historico_clinico.replace(/\n/g, '<br>') : "—";
+        document.getElementById("historicoFamiliar").innerHTML = prontuario.historico_familiar ? prontuario.historico_familiar.replace(/\n/g, '<br>') : "—";
         document.getElementById("medicamentos").textContent = prontuario.medicamentos || "—";
-        document.getElementById("observacoes").textContent = prontuario.observacoes_gerais || "—";
-        document.getElementById("statusProntuario").textContent = prontuario.status || "—";
+        document.getElementById("observacoes").innerHTML = prontuario.observacoes_gerais ? prontuario.observacoes_gerais.replace(/\n/g, '<br>') : "—";
+        
+        let badgeClass = '';
+        switch (prontuario.status) {
+            case 'ATIVO': badgeClass = 'bg-success'; break;
+            case 'ARQUIVADO': badgeClass = 'bg-secondary'; break;
+            case 'EM_ANALISE': badgeClass = 'bg-warning text-dark'; break;
+            default: badgeClass = 'bg-info'; break;
+        }
+        statusProntuarioBadge.textContent = prontuario.status || "N/A";
+        statusProntuarioBadge.className = `badge ${badgeClass}`;
+
+        loadingProntuario.classList.add("d-none");
+        prontuarioContent.classList.remove("d-none");
 
     } catch (error) {
         console.error("Erro ao carregar prontuário:", error);
+        loadingProntuario.textContent = "Erro ao carregar prontuário.";
     }
 }
 
@@ -48,6 +70,9 @@ async function carregarNomePaciente() {
 
 async function carregarEvolucoes() {
     const lista = document.getElementById("listaEvolucoes");
+    const loadingEvolucoes = document.getElementById("loadingEvolucoes");
+
+    loadingEvolucoes.classList.remove("d-none");
 
     try {
         const response = await fetch(`/api/listar/evolucoes/${pacienteId}`, {
@@ -56,24 +81,28 @@ async function carregarEvolucoes() {
         const evolucoes = await response.json();
 
         if (!evolucoes || evolucoes.length === 0) {
-            lista.innerHTML = `<p class="text-muted">Nenhuma evolução registrada ainda.</p>`;
+            lista.innerHTML = `<p class="text-center text-muted py-4 mb-0">Nenhuma evolução registrada ainda.</p>`;
+            loadingEvolucoes.classList.add("d-none");
             return;
         }
 
         lista.innerHTML = evolucoes.map(ev => `
-            <div class="border-bottom p-3">
+            <div class="list-group-item list-group-item-action py-3">
                 <div class="d-flex justify-content-between align-items-center mb-1">
-                    <span class="fw-bold">${new Date(ev.data_sessao).toLocaleDateString("pt-BR")}</span>
+                    <span class="fw-bold text-dark">${new Date(ev.data_sessao).toLocaleDateString("pt-BR")}</span>
                     <span class="badge ${ev.status_preenchimento === 'CONCLUIDO' ? 'bg-success' : 'bg-warning text-dark'}">
                         ${ev.status_preenchimento}
                     </span>
                 </div>
-                <p class="mb-0 text-secondary">${ev.observacoes}</p>
+                <p class="mb-0 text-muted small">${ev.observacoes}</p>
             </div>
         `).join("");
 
+        loadingEvolucoes.classList.add("d-none");
+
     } catch (error) {
         lista.innerHTML = `<p class="text-danger">Erro ao carregar evoluções.</p>`;
+        loadingEvolucoes.classList.add("d-none");
     }
 }
 

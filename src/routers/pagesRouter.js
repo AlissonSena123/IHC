@@ -78,16 +78,16 @@ router.get("/listar/agendamento", (req, res) => {
     );
 });
 
-// router.get("/listar/prontuario", (req, res) => {
-//     res.sendFile(
-//         path.join(
-//             __dirname,
-//             "../../public/views/listarProntuarios.html"
-//         )
-//     );
-// });
-
 //Prontuarios
+router.get("/listar/prontuario", (req, res) => {
+    res.sendFile(
+        path.join(
+            __dirname,
+            "../../public/views/listarProntuarios.html"
+        )
+    );
+});
+
 router.get("/criar/prontuario", (req, res) => {
     res.sendFile(
         path.join(

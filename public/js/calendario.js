@@ -43,12 +43,32 @@ document.addEventListener("DOMContentLoaded", async () => {
             events: eventos,
             eventClick(info) {
                 const evento = info.event;
-                alert(`
-                Título: ${evento.title} 
-                Paciente: ${evento.extendedProps.paciente}
-                Status: ${evento.extendedProps.status} 
-                Descrição: ${evento.extendedProps.descricao || "Sem descrição"}
-                `);
+                const props = evento.extendedProps;
+
+                // Preencher o modal com as informações do evento
+                document.getElementById('infoTitulo').textContent = evento.title;
+                document.getElementById('infoPaciente').textContent = props.paciente;
+                document.getElementById('infoData').textContent = new Date(evento.start).toLocaleDateString('pt-BR');
+                
+                const options = { hour: '2-digit', minute: '2-digit' };
+                const inicio = evento.start.toLocaleTimeString('pt-BR', options);
+                const fim = evento.end ? evento.end.toLocaleTimeString('pt-BR', options) : '--:--';
+                document.getElementById('infoHorario').textContent = `${inicio} - ${fim}`;
+
+                const statusBadge = document.getElementById('infoStatus');
+                statusBadge.textContent = props.status;
+                statusBadge.className = 'badge';
+                
+                if (props.status === 'CONFIRMADA') statusBadge.classList.add('bg-success');
+                else if (props.status === 'PENDENTE') statusBadge.classList.add('bg-warning', 'text-dark');
+                else if (props.status === 'CANCELADA') statusBadge.classList.add('bg-danger');
+                else statusBadge.classList.add('bg-secondary');
+
+                document.getElementById('infoDescricao').textContent = props.descricao || 'Sem descrição';
+
+                // Mostrar o modal usando a instância global do Bootstrap
+                const modal = new bootstrap.Modal(document.getElementById('modalDetalhes'));
+                modal.show();
             }
         });
 
