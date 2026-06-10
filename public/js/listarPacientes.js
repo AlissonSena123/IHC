@@ -7,24 +7,23 @@ async function carregarPacientes() {
         tabela.innerHTML = "";
 
         data.forEach(p => {
-            const tr = document.createElement("tr");
+            const tr = document.createElement("tr"); // ← só esse, sem <tr> no innerHTML
             tr.innerHTML = `
-                <tr>
-                    <td>${p.nome} ${p.sobrenome || ''}</td>
-                    <td>${p.email}</td>
-                    <td>${p.telefone || '---'}</td>
-                    <td>${p.CPF || '---'}</td>
-                    <td class="text-center">
-                        <button class="btn btn-sm btn-outline-danger" data-id="${p.id}">
-                            <i class="ph ph-trash"></i>
-                        </button>
-                    </td>
-                </tr>
-            `;
+                <td>${p.nome} ${p.sobrenome || ''}</td>
+                <td>${p.email}</td>
+                <td>${p.telefone || '---'}</td>
+                <td>${p.CPF || '---'}</td>
+                <td class="text-center">
+                    <button class="btn btn-sm btn-outline-danger" data-id="${p.id}">
+                        <i class="ph ph-trash"></i>
+                    </button>
+                </td>
+            `; // ← sem <tr> aqui dentro
 
             tr.querySelector("button").addEventListener("click", () => excluirPaciente(p.id));
             tabela.appendChild(tr);
         });
+        
     } catch (error) {
         console.error(error);
     }
