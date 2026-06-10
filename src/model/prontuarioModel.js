@@ -60,4 +60,14 @@ export default class ProntuarioModel {
         if (error) throw error;
         return data;
     }
+
+    static async qtdProntuario() {
+        const { count, error } = await supabase
+            .from("prontuario")
+            .select("*", { count: "exact", head: true })
+
+        if(error) throw error;
+
+        return count;
+    }
 }

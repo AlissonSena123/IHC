@@ -29,7 +29,7 @@ export default class PacienteController {
     static async listarQuantidadeDePacientes(req, res) {
         try {
             const qtdPacientes = await PacienteService.quantPaciente();
-            return res.status(200).json({ count: qtdPacientes });;
+            return res.status(200).json({ count: qtdPacientes });
         } catch (error) {
             console.log("Erro: ", error);
             res.status(500).json({ erro: error.message });

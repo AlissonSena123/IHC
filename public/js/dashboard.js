@@ -1,36 +1,9 @@
-async function qtdPacientes() {
-    const qtd = document.getElementById("countPacientes");
-
-    try {
-        const res = await fetch("/api/qtd/pacientes");
-        const data = await res.json();
-
-        qtd.innerHTML = data.count;
-
-    } catch (error) {
-        console.error("ERRO ao buscar pacientes: ", error);
-        qtd.innerHTML = "--";
-    }
-}
-
-async function qtdProntuarios() {
-    const qtd = document.getElementById("countProntuarios");
-    try {
-        // Assumindo que existe esta rota baseada na estrutura do projeto
-        const res = await fetch("/api/qtd/prontuarios");
-        const data = await res.json();
-        qtd.innerHTML = data.count || 0;
-    } catch (error) {
-        console.error("ERRO ao buscar prontuários: ", error);
-        qtd.innerHTML = "--";
-    }
-}
-
+/**
+ * Carrega os dados do usuário logado e atualiza as saudações.
+ */
 async function carregarUsuario() {
     try {
-        const response = await fetch("/auth/me", {
-            credentials: 'include'
-        });
+        const response = await fetch("/auth/me", { credentials: 'include' });
 
         if (!response.ok) {
             window.location.href = "/";
@@ -40,8 +13,10 @@ async function carregarUsuario() {
         const usuario = await response.json();
         const navWelcome = document.getElementById("navWelcomeText");
         const headerWelcome = document.getElementById("headerWelcomeText");
-        if (navWelcome) navWelcome.textContent = `Olá, ${usuario.nome}`;
-        if (headerWelcome) headerWelcome.textContent = `Olá, ${usuario.nome}`;
+        
+        const saudacao = `Olá, ${usuario.nome}`;
+        if (navWelcome) navWelcome.textContent = saudacao;
+        if (headerWelcome) headerWelcome.textContent = saudacao;
 
     } catch (error) {
         console.error("Erro na autenticação:", error);
@@ -49,97 +24,81 @@ async function carregarUsuario() {
     }
 }
 
-async function qtdAgenda() {
-    const qtd = document.getElementById("countAgendamentos");
-
+/**
+ * Busca a quantidade total de prontuários (esta informação não vem no resumo do dashboard).
+ */
+async function carregarQtdProntuario() {
+    const el = document.getElementById("countProntuarios");
     try {
-        const res = await fetch("/api/qtd/agendamentos");
+        const res = await fetch("/api/qtd/prontuario");
         const data = await res.json();
-
-        qtd.innerHTML = data.count;
-
+        if (el) el.textContent = data.count ?? 0;
     } catch (error) {
-        console.error("ERRO ao buscar agenda: ", error);
-        qtd.innerHTML = "--";
+        console.error("Erro ao buscar prontuários:", error);
+        if (el) el.textContent = "--";
     }
 }
 
-async function carregarResumoAgenda() {
-
+/**
+ * Carrega o resumo estatístico (Pacientes, Agendas e Status) e inicializa o gráfico.
+ */
+async function carregarDadosDashboard() {
     try {
-
         const response = await fetch("/api/dashboard");
         const data = await response.json();
 
-        document.getElementById("countConfirmadas").innerHTML = data.confirmadas;
+        // Helper para atualizar texto com segurança
+        const updateText = (id, val) => {
+            const el = document.getElementById(id);
+            if (el) el.textContent = val ?? 0;
+        };
 
-        document.getElementById("countPendentes").innerHTML = data.pendentes;
+        // Atualiza todos os cards com os dados retornados pelo serviço de dashboard
+        updateText("countPacientes", data.totalPacientes);
+        updateText("countAgendamentos", data.totalAgendamentos);
+        updateText("countConfirmadas", data.confirmadas);
+        updateText("countPendentes", data.pendentes);
+        updateText("countCanceladas", data.canceladas);
 
-        document.getElementById("countCanceladas").innerHTML = data.canceladas;
-
-        criarGrafico(data);
-
+        if (data.totalAgendamentos > 0) {
+            criarGrafico(data);
+        }
     } catch (error) {
-
-        console.error(error);
+        console.error("Erro ao carregar dados do dashboard:", error);
     }
 }
 
 function criarGrafico(dados) {
     const ctx = document.getElementById("graficoStatus");
+    if (!ctx) return;
 
     new Chart(ctx, {
         type: "doughnut",
-
         data: {
-
-            labels: [
-                "Confirmadas",
-                "Pendentes",
-                "Canceladas"
-            ],
-
+            labels: ["Confirmadas", "Pendentes", "Canceladas"],
             datasets: [{
-
-                data: [
-
-                    dados.confirmadas,
-
-                    dados.pendentes,
-
-                    dados.canceladas
-                ],
-
-                backgroundColor: [
-
-                    "#198754",
-
-                    "#ffc107",
-
-                    "#dc3545"
-                ]
+                data: [dados.confirmadas, dados.pendentes, dados.canceladas],
+                backgroundColor: ["#198754", "#ffc107", "#dc3545"]
             }]
         },
-
         options: {
-
             responsive: true,
-
             plugins: {
-
-                legend: {
-
-                    position: "bottom"
-                }
+                legend: { position: "bottom" }
             }
         }
     });
 }
 
+/**
+ * Carrega as atividades recentes para a tabela.
+ */
 async function carregarAtividadesRecentes() {
     const lista = document.getElementById("listaRecentes");
+    if (!lista) return;
+
     try {
-        const res = await fetch("/api/agendamentos/recentes"); // Ajustar para sua rota real
+        const res = await fetch("/api/agendamentos/recentes"); 
         const atividades = await res.json();
 
         if (!atividades || atividades.length === 0) {
@@ -155,7 +114,7 @@ async function carregarAtividadesRecentes() {
                     <div class="small text-muted">${atv.horario_inicio}</div>
                 </td>
                 <td>
-                    <span class="badge ${atv.status === 'CONFIRMADA' ? 'bg-success' : 'bg-warning'} bg-opacity-10 ${atv.status === 'CONFIRMADA' ? 'text-success' : 'text-warning'} border ${atv.status === 'CONFIRMADA' ? 'border-success' : 'border-warning'}">
+                    <span class="badge ${atv.status === 'CONFIRMADA' ? 'bg-success text-success' : 'bg-warning text-warning'} bg-opacity-10 border">
                         ${atv.status}
                     </span>
                 </td>
@@ -171,23 +130,30 @@ async function carregarAtividadesRecentes() {
     }
 }
 
-// Inicialização
-carregarUsuario();
-qtdAgenda();
-qtdPacientes();
-qtdProntuarios();
-carregarAtividadesRecentes();
-carregarResumoAgenda();
+/**
+ * Inicializa todos os componentes do Dashboard de forma otimizada.
+ */
+function inicializar() {
+    // Exibição da data atual
+    const dateDisplay = document.getElementById('currentDateDisplay');
+    if (dateDisplay) {
+        dateDisplay.textContent = new Intl.DateTimeFormat('pt-BR', { 
+            weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' 
+        }).format(new Date());
+    }
 
-// Exibição da data atual
-const dateDisplay = document.getElementById('currentDateDisplay');
-if (dateDisplay) {
-    dateDisplay.textContent = new Intl.DateTimeFormat('pt-BR', { 
-        weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' 
-    }).format(new Date());
+    // Dispara todas as buscas em paralelo para performance máxima
+    Promise.allSettled([
+        carregarUsuario(),
+        carregarDadosDashboard(),
+        carregarQtdProntuario(),
+        carregarAtividadesRecentes()
+    ]);
 }
 
 document.getElementById("logoutBtn")?.addEventListener("click", () => {
-    // Lógica de logout aqui
     window.location.href = "/";
 });
+
+// Inicia o processamento
+inicializar();

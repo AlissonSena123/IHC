@@ -56,4 +56,13 @@ export default class ProntuarioController {
             res.status(500).json({erro: error.message});
         }
     }
+
+    static async qtdProntuario(req, res){
+        try {
+            const qtdProntuario = await ProntuarioService.ListarQuantidadeProntuario();
+            return res.status(200).json({ count: qtdProntuario });
+        } catch (error) {
+            
+        }
+    }
 }

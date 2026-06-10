@@ -32,4 +32,8 @@ export default class ProntuarioService {
     static async listarEvolucoes(id) {
         return await ProntuarioModel.listarEvolucao(id);
     }
+
+    static async ListarQuantidadeProntuario(){
+        return await ProntuarioModel.qtdProntuario();
+    }
 }

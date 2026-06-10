@@ -26,6 +26,8 @@ router.delete("/api/deletar/prontuarios/:id",
     ProntuarioController.excluirProntuario
 );
 
+router.get("/api/qtd/prontuario", ProntuarioController.qtdProntuario);
+
 // Buscar e listar também exigem autenticação
 router.get("/api/buscar/paciente/:id",
     authMiddleware,
@@ -44,5 +46,6 @@ router.get("/api/listar/evolucoes/:id",
     authorize(["psicologo"]),
     ProntuarioController.listarEvolucoes
 );
+
 
 export default router;
