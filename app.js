@@ -7,6 +7,7 @@ import authRoutes from "./src/routers/authRoutes.js";
 import agendamentoRoutes from "./src/routers/agendaRoutes.js";
 import pacienteRouter from "./src/routers/pacienteRouter.js"
 import prontuarioRouter from "./src/routers/prontuarioRouter.js";
+import dashboardRoutes from "./src/routers/dashboardRoutes.js";
 
 const app = express();
 
@@ -23,5 +24,6 @@ app.use(authRoutes);
 app.use(agendamentoRoutes);
 app.use(pacienteRouter);
 app.use(prontuarioRouter);
+app.use(dashboardRoutes);
 
 export default app;
