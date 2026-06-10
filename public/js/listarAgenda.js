@@ -1,6 +1,5 @@
 async function carregar() {
-
-    const response = await fetch("/api/listar/agendamentos");
+    const response = await fetch("/api/listar/agendamentos", { credentials: "include" });
     const dados = await response.json();
 
     const filtroTitulo =
@@ -31,60 +30,51 @@ async function carregar() {
         return tituloOk && statusOk && dataOk;
     });
 
+    // Atualizar Contadores do Relatório
+    document.getElementById("totalGeral").textContent = filtrados.length;
+    document.getElementById("totalConfirmadas").textContent = filtrados.filter(i => i.status === "CONFIRMADA").length;
+    document.getElementById("totalPendentes").textContent = filtrados.filter(i => i.status === "PENDENTE").length;
+    document.getElementById("totalCanceladas").textContent = filtrados.filter(i => i.status === "CANCELADA").length;
+
     const tabela = document.getElementById("tabelaAgendamentos");
-
-    tabela.innerHTML = "";
-
     if (filtrados.length === 0) {
-
-        tabela.innerHTML = `
-            <tr>
-                <td colspan="5" class="text-center">
-                    Nenhum agendamento encontrado
-                </td>
-            </tr>
-        `;
-
+        tabela.innerHTML = `<tr><td colspan="6" class="text-center py-4 text-muted">Nenhum registro encontrado.</td></tr>`;
         return;
     }
 
-    filtrados.forEach(item => {
+    tabela.innerHTML = filtrados.map(item => {
+        const pacienteNome = item.paciente ? `${item.paciente.nome} ${item.paciente.sobrenome}` : "Não Informado";
+        const dataFormatada = new Date(item.data_sessao).toLocaleDateString('pt-BR');
 
-        tabela.innerHTML += `
-        <tr>
-
-            <td>${item.titulo}</td>
-
-            <td>
-                <span class="badge bg-${getCor(item.status)}">
-                    ${item.status}
-                </span>
-            </td>
-
-            <td>
-                ${item.data_sessao}
-            </td>
-
-            <td>
-                ${item.horario_inicio} - ${item.horario_fim}
-            </td>
-
-            <td>
-                <a href="/agendamento-editar?id=${item.id}"
-                    class="btn btn-warning btn-sm">
-                    Editar
-                </a>
-
-                <button
-                    class="btn btn-danger btn-sm"
-                    onclick="excluir('${item.id}')">
-                    Excluir
-                </button>
-            </td>
-
-        </tr>
+        return `
+            <tr>
+                <td class="ps-4 fw-medium">${pacienteNome}</td>
+                <td>${item.titulo}</td>
+                <td class="text-center">
+                    <span class="badge bg-${getCor(item.status)}">
+                        ${item.status}
+                    </span>
+                </td>
+                <td>${dataFormatada}</td>
+                <td class="text-center">
+                    ${item.horario_inicio} - ${item.horario_fim}
+                </td>
+                <td class="text-center no-print">
+                    <div class="btn-group">
+                        <a href="/agendamento-editar?id=${item.id}"
+                            class="btn btn-warning btn-sm shadow-sm">
+                            <i class="ph ph-pencil"></i>
+                        </a>
+                        <button
+                            class="btn btn-danger btn-sm shadow-sm"
+                            onclick="excluir('${item.id}')">
+                            <i class="ph ph-trash"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
         `;
-    });
+    }).join('');
 }
 
 function getCor(status) {
@@ -133,6 +123,14 @@ async function excluir(id) {
 
 document.getElementById("filtroTitulo")?.addEventListener("input", carregar);
 document.getElementById("filtroStatus")?.addEventListener("change", carregar);
-document.getElementById("filtroData")?.addEventListener("change", carregar);
+document.getElementById("filtroData")?.addEventListener("input", carregar);
+
+document.getElementById("btnLimpar")?.addEventListener("click", () => {
+    document.getElementById("filtroTitulo").value = "";
+    document.getElementById("filtroStatus").value = "";
+    document.getElementById("filtroData").value = "";
+    carregar();
+});
+
 window.excluir = excluir;
 carregar();

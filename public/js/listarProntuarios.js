@@ -70,11 +70,23 @@ async function carregarProntuarios() {
         const linhas = await Promise.all(linhasPromises);
         const linhasFiltradas = linhas.filter(l => l !== null);
 
+        // Extrair dados para os contadores do relatório
+        const prontuariosData = [];
+        // Re-executar um processamento simples para contagem ou usar o resultado das promises
+        // Para este relatório, vamos contar baseado no que foi renderizado ou nos objetos reais
+        // Como o código atual é focado em UI, vamos extrair os status dos resultados válidos
+
         if (linhasFiltradas.length > 0) {
             tabela.innerHTML = linhasFiltradas.join("");
         } else {
             tabela.innerHTML = `<tr><td colspan="4" class="text-center py-4 text-muted">Nenhum prontuário encontrado com os filtros aplicados.</td></tr>`;
         }
+
+        // Atualiza os contadores no topo da página
+        document.getElementById("totalProntuarios").textContent = linhasFiltradas.length;
+        document.getElementById("totalAtivos").textContent = linhasFiltradas.filter(l => l.includes('bg-success')).length;
+        document.getElementById("totalAnalise").textContent = linhasFiltradas.filter(l => l.includes('bg-warning')).length;
+        document.getElementById("totalArquivados").textContent = linhasFiltradas.filter(l => l.includes('bg-secondary')).length;
 
     } catch (error) {
         console.error("Erro ao carregar prontuários:", error);
